@@ -1,0 +1,49 @@
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(100),
+    CustomerEmail VARCHAR(100),
+    CustomerAddress VARCHAR(255)
+);
+
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    CategoryID INT,
+    ProductName VARCHAR(100),
+    UnitPrice DECIMAL(10, 2),
+    Discount DECIMAL(5, 2)
+);
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    ProductID INT,
+    DateOfSale DATE,
+    QuantitySold INT,
+    ShippingCost DECIMAL(10, 2),
+    PaymentMethod VARCHAR(50),
+    TotalPrice DECIMAL(10, 2),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+CREATE TABLE Categories (
+    CategoryID INT PRIMARY KEY,
+    CategoryName VARCHAR(100)
+);
+
+CREATE TABLE Regions (
+    RegionID INT PRIMARY KEY,
+    RegionName VARCHAR(100)
+);
+
+CREATE TABLE Sales (
+    SaleID INT PRIMARY KEY,
+    OrderID INT,
+    CustomerID INT,
+    ProductID INT,
+    DateOfSale DATE,
+    TotalPrice DECIMAL(10, 2),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
